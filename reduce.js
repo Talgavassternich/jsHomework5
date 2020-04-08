@@ -1,14 +1,10 @@
 const concat = (arr1, arr2) => {
-    const init = [...arr1];
-    return arr2.reduce((acc, curr) => {
-        acc.push(curr);
-        return acc;
-    }, init);
+    return Array.isArray(arr2) ? [...arr1, ...arr2] : [...arr1, arr2];
 };
 const filter = (arr1, fn) => {
     return arr1.reduce((acc, curr) => {
         if (fn(curr)) {
-            acc.push(curr);
+            return [...acc, curr];
         }
         return acc;
     }, []);
@@ -50,8 +46,7 @@ const indexOf = (arr1, el) => {
 };
 const map = (arr1, fn) => {
     return arr1.reduce((acc, curr) => {
-        acc.push(fn(curr));
-        return acc;
+        return [...acc, fn(curr)];
     }, []);
 };
 const reverse = (arr1) => {
@@ -76,12 +71,13 @@ const every = (arr1, fn) => {
         return acc;
     }, true);
 };
-// console.log(filter([1, 2, 3, 6, 12, 143], (n) => {return (n % 2) === 0}));
+console.log(concat([1, 2, 3], [4, 5, 7]));
+console.log(filter([1, 2, 3, 6, 12, 143], (n) => {return (n % 2) === 0}));
 // console.log(find([1, 2, 3, 6, 12, 143], (n) => {return n > 10}));
 // console.log(findIndex([1, 2, 3, 6, 12, 143], (n) => {return n > 10}));
 // console.log(includes([1, 2, 3, 6, 12, 143], 143));
 // console.log(indexOf([1, 2, 3, 6, 12, 143], 12));
-// console.log(map([1, 2, 3, 6, 12, 143], (n) => {return n * 2}));
+console.log(map([1, 2, 3, 6, 12, 143], (n) => {return n * 2}));
 // console.log(reverse([1, 2, 3, 6, 12, 143]));
 // console.log(some([1, 2, 3, 6, 12, 143], (n) => {return n > 142}));
-console.log(every([1, 2, 3, 6, 12, 143], (n) => {return n > 0}));
+// console.log(every([1, 2, 3, 6, 12, 143], (n) => {return n > 0}));
