@@ -1,81 +1,15 @@
-const concat = (arr1, arr2) => {
-    const init = [...arr1];
-    return arr2.reduce((acc, curr) => {
-        acc.push(curr);
-        return acc;
-    }, init);
-};
-const filter = (arr1, fn) => {
-    return arr1.reduce((acc, curr) => {
-        if (fn(curr)) {
-            acc.push(curr);
-        }
-        return acc;
-    }, []);
-};
-const find = (arr1, fn) => {
-    return arr1.reduce((acc, curr) => {
-        if (acc !== undefined) {
-            return acc;
-        }
-        if (fn(curr)) {
-            return curr;
-        }
-        return acc;
-    }, undefined);
-};
-const findIndex = (arr1, fn) => {
-    return arr1.reduce((acc, curr, index) => {
-        if (acc < 0 && fn(curr)) {
-            return index;
-        }
-        return acc;
-    }, -1);
-};
-const includes = (arr1, el) => {
-    return arr1.reduce((acc, curr) => {
-        if (!acc) {
-            return curr === el;
-        }
-        return acc;
-    }, false);
-};
-const indexOf = (arr1, el) => {
-    return arr1.reduce((acc, curr, index) => {
-        if (acc < 0 && curr === el) {
-            return index;
-        }
-        return acc;
-    }, -1);
-};
-const map = (arr1, fn) => {
-    return arr1.reduce((acc, curr) => {
-        acc.push(fn(curr));
-        return acc;
-    }, []);
-};
-const reverse = (arr1) => {
-    return arr1.reduce((acc, curr) => {
-        acc.unshift(curr);
-        return acc;
-    }, []);
-};
-const some = (arr1, fn) => {
-    return arr1.reduce((acc, curr) => {
-        if (!acc) {
-            return fn(curr);
-        }
-        return acc;
-    }, false);
-};
-const every = (arr1, fn) => {
-    return arr1.reduce((acc, curr) => {
-        if (acc) {
-            return fn(curr);
-        }
-        return acc;
-    }, true);
-};
+// const concat = (arr1, arr2) => Array.isArray(arr2) ? [...arr1, ...arr2] : [...arr1, arr2];
+const concat = (arr1, arr2) => arr2.reduce((acc, curr) => [...acc, curr], arr1);
+const filter = (arr1, fn) => arr1.reduce((acc, curr) => fn(curr) ? [...acc, curr] : acc, []);
+const find = (arr1, fn) => arr1.reduce((acc, curr) => acc !== undefined ? acc : fn(curr) ? curr : acc, undefined);
+const findIndex = (arr1, fn) => arr1.reduce((acc, curr, index) => acc < 0 && fn(curr) ? index : acc, -1);
+const includes = (arr1, el) => arr1.reduce((acc, curr) => !acc ? curr === el : acc, false);
+const indexOf = (arr1, el) => arr1.reduce((acc, curr, index) => (acc < 0 && curr === el) ? index : acc, -1);
+const map = (arr1, fn) => arr1.reduce((acc, curr) => [...acc, fn(curr)], []);
+const reverse = (arr1) => arr1.reduce((acc, curr) => [curr, ...acc], []);
+const some = (arr1, fn) => arr1.reduce((acc, curr) => !acc ? fn(curr) : acc, false);
+const every = (arr1, fn) => arr1.reduce((acc, curr) => acc ? fn(curr) : acc, true);
+// console.log(concat([1, 2, 3], [4, 5, 7]));
 // console.log(filter([1, 2, 3, 6, 12, 143], (n) => {return (n % 2) === 0}));
 // console.log(find([1, 2, 3, 6, 12, 143], (n) => {return n > 10}));
 // console.log(findIndex([1, 2, 3, 6, 12, 143], (n) => {return n > 10}));
